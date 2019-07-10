@@ -1,0 +1,222 @@
+<html>
+<title>SIGN IN PAGE</title>
+  <link href="https://fonts.googleapis.com/css?family=Monda" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Poiret+One" rel="stylesheet">
+
+<style>
+	.msg-error {
+	color: #c65848;
+	}
+
+	.g-recaptcha.error {
+	border: solid 2px #c64848;
+	padding: .2em;
+	width: 19em;
+	}
+
+	input{
+	padding:10px;
+	font-size:15px;
+	font-family: 'Monda', sans-serif;
+	border: 1px solid #aaaaaa;
+	}
+
+	label{
+	font-size:15px;
+	font-family: 'Monda', sans-serif;
+	}
+
+
+	#SignForm{
+	  position: absolute;
+	  left: 360px;
+	  margin-top: 40px;
+	  padding: 10px;
+	  background-color: white;
+	  width: 720px;
+	  border: 3px solid #3D3175;
+	}
+
+
+
+	body {
+	background-color: #f1f1f1;
+	}
+
+	button{
+	background-color: #4CAF50;
+	color: #ffffff;
+	border:none;
+	padding: 10px 20px;  
+	font-size:17px;
+	font-family:Raleway;
+	cursor: pointer; 
+	float:right;
+	width:18%;
+	height:7%;
+	}
+
+	.center 
+	{
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	width: 50px;
+	}
+
+	.eorm
+	{
+	padding-top: 80px;
+	font-size: 38px;
+	text-align:center;
+	font-family: 'Poiret One', cursive;
+	}
+
+	a{
+	text-decoration: none;
+	}
+
+</style>
+
+
+<script src="https://www.google.com/recaptcha/api.js?onload=recaptchaCallback&render=explicit"
+        async defer></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+</head>
+
+<body>
+
+	<p class="eorm"><b>&emsp;&emsp;Sign In To Your Account</b></p>
+
+	<form id="SignForm" action="cU.php" method="post">
+
+	<br><br>
+
+	<label><b>USERNAME:</b></label><br>
+
+	<input type="text" placeholder="Enter Username..." name="uname" id="USERNAME" required="required" onchange="validateName()" style="width:70%;"/>  <span id="result" style="color: red;"></span><br><br><br>
+
+	<label><b>PASSWORD:</b></label><br>
+	
+	<input type="password" placeholder="Enter Password..." name="pass" id="PASSWORD" required="required" onchange="validatePassword()" style="width:70%;"/><br><br>
+
+	<input type="checkbox" onclick="showPassword()">Show Password
+	<br><br>
+
+
+	<span class="msg-error error"></span>
+	<div id="recaptcha" class="g-recaptcha" data-sitekey="*****"></div>
+
+	<p>
+	<center style="text-align:center; font-family: 'Monda', sans-serif; font-size: 15px;">Do not have an account?<a href="newsignin.html">Create an account</a></center></p>
+
+	<button class="btn" id="btn-validate">Submit Form</button>
+
+
+	</body>
+
+    <script>
+	function validateName(){
+		var name = document.getElementById("USERNAME").value;
+
+		if(name.length == 0){
+			alert("Enter Valid Name!");
+			document.getElementById("USERNAME").focus();
+		}
+		else{
+			document.getElementById("USERNAME").blur();
+			return true;
+		}
+	}
+
+	function validatePassword(){
+		var pass = document.getElementById("PASSWORD").value;
+
+		if(pass.length < 8){
+			alert("Enter Valid Password!");
+			document.getElementById("PASSWORD").focus();
+		}
+		else{
+			document.getElementById("PASSWORD").blur();
+			return true;
+		}
+	}
+
+	function showPassword(){
+		var x = document.getElementById("PASSWORD");
+		
+    	if (x.type == "password") {
+        	x.type = "text";
+        	
+    	} 
+    	else {
+        	x.type = "password";
+		}
+	}
+
+
+	function validateForm(){
+
+    if(validateName()==true && validatePassword()==true && verifyCallback()==true){
+      return true;
+    }
+    else{
+      return false;
+    }
+  }
+
+</script>	
+
+
+	<script type="text/javascript">
+
+	$("#btn-validate").click(function() {
+	var $captcha = $("#recaptcha"),
+	response = grecaptcha.getResponse();
+
+	if (response.length === 0) {
+	$(".msg-error").text("reCAPTCHA is mandatory");
+	if (!$captcha.hasClass("error")) {
+	  $captcha.addClass("error");
+	}
+	} else {
+	$(".msg-error").text("");
+	$captcha.removeClass("error");
+	alert("reCAPTCHA marked");
+	$.post( $("#SignForm").attr("action"),$("#SignForm :input").serializeArray(), function(info){ 
+		
+		$("#result").html(info);
+	});
+	    grecaptcha.reset();
+	    clearInput();
+
+	
+	 
+	}
+	});
+
+	$("#SignForm").submit( function() {
+	return false;
+    });
+
+	function clearInput(){
+	$("#SignForm :input").each( function(){
+		$(this).val('');
+	});
+    }
+
+    
+
+    var recaptchaCallback = function () {
+                           //  alert("grecaptcha is ready!");
+                            grecaptcha.render("recaptcha", {
+                         'sitekey': '*****', 
+                            });
+                        };
+
+
+	</script>
+
+
+	</html>

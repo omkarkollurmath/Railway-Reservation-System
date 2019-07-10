@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>SIGN UP PAGE</title>	
+	<link href="https://fonts.googleapis.com/css?family=Monda" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Sanchez" rel="stylesheet">
+
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    
+</head>    
+
+
+<style>
+
+body {
+  background-color: #f1f1f1;
+}
+
+label{
+  font-size:15px;
+  font-family: 'Monda', sans-serif;
+}
+
+p{
+	font-family: 'Monda', sans-serif;
+	font-size: 18px;
+}
+
+input{
+   padding:10px;
+   font-size:14px;
+   font-family: 'Monda', sans-serif;
+   border: 1px solid #aaaaaa;
+   width:50%;
+}
+
+a{
+	text-decoration: none;
+}
+
+
+form{
+	background-color: #ffffff;
+    margin: 30px auto;
+    padding: 20px;
+    width: 50%;
+    min-width: 250px;
+}
+
+button{
+  background-color: #4CAF50;
+  color: #ffffff;
+  border:none;
+  padding: 10px 20px;  
+  font-size:17px;
+  font-family: 'Monda', sans-serif;
+  cursor: pointer; 
+  
+}
+
+.reset{
+  
+  border:none;
+  padding: 10px 20px;
+  width:15%;  
+  font-size:17px;
+  font-family: 'Monda', sans-serif;
+  cursor: pointer; 
+  
+}
+
+input[type=radio]{
+	font-family: 'Monda', sans-serif;
+	padding: 10px;
+	left: 0;
+	width: 10%;
+}
+</style>
+
+<body>
+	
+
+	<h1 style="text-align:center;font-family: 'Sanchez', serif;font-size:30px">SIGN UP</h1>
+
+
+	<form id="myForm" action="validate.php" method="post">
+
+	<p style="background-color: #87ceeb ;opacity: 0.9; color: black; height: 20px;padding: 8px;"> USER CREDENTIALS: </p>
+
+	
+	<label>Username <span style="color: red">*</span>: </label>
+	<p><input type="text" placeholder="Enter User name..." name="uname" id="uname" minlength="3" maxlength="15" onchange="validateUserName()" required> <span id="result" style="color: red;"></span> </p>
+
+	<label> Password <span style="color: red">*</span>: </label>
+	<p><input type="password" placeholder="Enter Password..." name="pass" id="pass"  onchange="validatePassword()" required></p>
+
+
+	<label> Confirm Password <span style="color: red">*</span>:</label>
+	<p><input type="password" placeholder="Re-enter password..." name="repassword" id="repassword" onchange="validateRepassword()" required></p>
+	
+	<hr>
+
+	<p style="background-color: #87ceeb ;opacity: 0.9; color: black; height: 20px;padding: 10px;"> PERSONAL DETAILS: </p>
+
+	<label>First-name <span style="color: red">*</span>: </label>
+	<p><input type="text" placeholder="Enter First name..." name="fname" id="fname" onchange="validateFirstName()" required></p>
+
+	<label>Middle-name </label>
+	<p><input type="text" placeholder="Enter Middle name..." name="mname" id="mname"></p>	
+
+	<label>Last-name </label>
+	<p><input type="text" placeholder="Enter Last name..." name="lname" id="lname"></p>
+
+	<hr>
+
+	<label>Gender <span style="color: red">*</span>: </label>
+
+	<input type="radio" name="gender" value="male">Male 
+    <input type="radio" name="gender" value="female">Female 
+    <input type="radio" name="gender" value="other">Other 
+	
+    <br><br>
+
+    <hr>
+
+	<label>Date of Birth <span style="color: red">*</span>: </label>
+	<p><input type="date" name="dob" id="dob" required></p>
+
+	<hr>
+	
+	<label>Email <span style="color: red">*</span>: </label>
+	<p><input type="email" placeholder="Enter Email id ..." name="email" id="email" required></p>
+
+	<hr>
+
+	<label>Phone No <span style="color: red">*</span>: </label>
+	<p><input type="textarea" placeholder="Enter Phone No. ..." name="phno" id="phno"  onchange="validatePhone()" required></p>
+
+	<hr>
+
+	<label>Address </label>
+	<p><input type="textarea" placeholder="Enter Address..." name="address" id="address" ></p>
+
+	<hr>
+
+	<label>Pincode <span style="color: red">*</span>: </label>
+	<p><input type="text" placeholder="Enter Pincode..." name="pin" id="pin" onchange="validatePin()" required></p>
+
+	<hr>
+
+	<label>State <span style="color: red">*</span>:</label>
+	<p><input type="text" placeholder="Enter State..." name="state" id="state" onchange="validateState()" required></p>	
+
+	<button style="background-color: #D3D3D3;"><a href="newhome.html">Back</a></button> &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+	<input class="reset" type="reset" value="Reset">
+	&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+	<button  id="sub">SUBMIT</button>
+	</form>
+
+
+<script>
+
+function validateUserName(){
+	var x = document.getElementById("uname").value;
+
+    if (x.length==0){
+		alert("Pls enter Username.");
+		window.setTimeout(function ()
+    		{
+        		document.getElementById("uname").focus();
+    		}, 0);
+	}
+	else{
+		window.setTimeout(function ()
+    		{
+        		document.getElementById("uname").blur();
+    		}, 0);
+		return true;
+	}
+
+}	
+
+function validatePassword(){
+	var pass = document.getElementById("pass").value;
+	if(pass.length < 8)
+	{
+		alert("Your password should have atleast 8 characters..");
+		window.setTimeout(function ()
+    		{
+        		document.getElementById("pass").focus();
+    		}, 0);
+	}
+	else{
+		window.setTimeout(function ()
+    		{
+        		document.getElementById("pass").blur();
+    		}, 0);
+		return true;
+	}
+}
+
+function validateRepassword(){
+	var pass = document.getElementById("pass").value;
+	var repass = document.getElementById("repassword").value;
+	if(pass != repass)
+	{
+		alert("Please enter valid password..");
+		window.setTimeout(function ()
+    		{
+        		document.getElementById("repassword").focus();
+    		}, 0);
+	}
+	else{
+		window.setTimeout(function ()
+    		{
+        		document.getElementById("repassword").blur();
+    		}, 0);
+		return true;
+	}
+}
+
+function validateFisrtName(){
+	var x = document.getElementById("fname").value;
+
+    if (x.length==0){
+		alert("Pls enter First Name.");
+		window.setTimeout(function ()
+    		{
+        		document.getElementById("fname").focus();
+    		}, 0);
+	}
+	else{
+		window.setTimeout(function ()
+    		{
+        		document.getElementById("fname").blur();
+    		}, 0);
+		return true;
+	}
+
+}	
+
+function validatePhone(){
+	var x = document.getElementById("phno").value;
+
+    if (x.length!=10){
+		alert("Pls enter a valid phone no.");
+		window.setTimeout(function ()
+    		{
+        		document.getElementById("phno").focus();
+    		}, 0);
+	}
+	else{
+		window.setTimeout(function ()
+    		{
+        		document.getElementById("phno").blur();
+    		}, 0);
+		return true;
+	}
+
+}
+
+function validatePin(){
+	var p= document.getElementById("pin").value;
+
+	if(p.length!=6)
+	{
+		alert("Please enter valid pincode.");
+		window.setTimeout(function ()
+    		{
+        		document.getElementById("pin").focus();
+    		}, 0);
+	}
+	else{
+		window.setTimeout(function ()
+    		{
+        		document.getElementById("pin").blur();
+    		}, 0);
+		return true;
+	}
+}
+
+function validateState(){
+	var p= document.getElementById("state").value;
+
+	if(p.length==0)
+	{
+		alert("Please enter state.");
+		window.setTimeout(function ()
+    		{
+        		document.getElementById("state").focus();
+    		}, 0);
+	}
+	else{
+		window.setTimeout(function ()
+    		{
+        		document.getElementById("state").blur();
+    		}, 0);
+		return true;
+	}
+}
+
+function validateForm(){
+	if((validateUserName() == true) &&(validatePassword() == true) && (validateRepassword() == true) &&  (validateFisrtName() == true) && (validatePhone() == true) && (validatePin() == true) && (validateState() == true)){
+		
+		return true;
+	}
+}
+
+</script>
+
+<script>
+	
+
+$("#sub").click( function(){ 
+
+if(validateForm() == true)
+
+$.post( $("#myForm").attr("action"),$("#myForm :input").serializeArray(), function(info){ $("#result").html(info);});
+
+});
+
+
+$("#myForm").submit( function() {
+	return false;
+});
+
+
+</script>
+
+</body>
+</html>
